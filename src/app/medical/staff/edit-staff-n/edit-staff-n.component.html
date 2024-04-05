@@ -1,0 +1,119 @@
+<div class="page-wrapper">
+    <div class="content">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/staffs/list-staff">Staffs </a></li>
+                        <li class="breadcrumb-item"><i class="feather icon-chevron-right"></i></li>
+                        <li class="breadcrumb-item active">Edit Staffs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="card">
+                    <div class="card-body" *ngIf="staff_selected">
+                        <form>
+                            <div class="row">
+
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="form-group local-forms">
+                                        <label>Nombres <span class="login-danger">*</span></label>
+                                        <input class="form-control" [(ngModel)]="name" name="name" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="form-group local-forms">
+                                        <label>Apellidos <span class="login-danger">*</span></label>
+                                        <input class="form-control" [(ngModel)]="surname" name="surname" type="text">
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-xl-6">
+                                    <div class="form-group local-forms">
+                                        <label>Email <span class="login-danger">*</span></label>
+                                        <input class="form-control" [(ngModel)]="email" name="email" type="email">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-6">
+                                    <div class="form-group local-forms">
+                                        <label >Contraseña <span class="login-danger">*</span></label>
+                                        <input class="form-control" [(ngModel)]="password" name="password" [type]="passwordClass ? 'text' : 'password'" >
+                                        <span 
+                                        (click)="togglePassword()" 
+                                        [ngClass] = "passwordClass ? 'feather icon-eye' : 'feather icon-eye-off'"
+                                        class="profile-views toggle-password">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-6">
+                                    <div class="form-group local-forms">
+                                        <label >Confirmar Contraseña <span class="login-danger">*</span></label>
+                                        <input class="form-control" [(ngModel)]="password_confirmation" name="password_confirmation" [type]="passwordClass ? 'text' : 'password'">
+                                        <span 
+                                        (click)="togglePassword()" 
+                                        [ngClass] = "passwordClass ? 'feather icon-eye' : 'feather icon-eye-off'"
+                                        class="profile-views toggle-password">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-6">
+                                    <div class="form-group local-forms">
+                                        <label>Fecha de registro <span class="login-danger">*</span></label>
+                                        <input class="form-control datetimepicker" [(ngModel)]="registro_date"
+                                            name="registro_date" type="text" matInput [matDatepicker]="picker">
+                                        <mat-datepicker #picker></mat-datepicker>
+                                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="form-group local-forms">
+                                        <label>Área <span class="login-danger">*</span></label>
+                                        <input class="form-control" [(ngModel)]="area" name="area" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="form-group local-forms">
+                                        <label>Roles <span class="login-danger">*</span></label>
+                                        <mat-select [(ngModel)]="selectedValue" [ngModelOptions]="{standalone: true}"
+                                            class="form-control select" placeholder="Select  Role">
+                                            <mat-option *ngFor="let data of roles" [value]="data.id">
+                                                {{data.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row my-4" *ngIf="text_validation">
+                                    <div class="col-md-8">
+                                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                            <strong>!</strong> {{ text_validation }}.
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close">
+                                                <span aria-hidden="true"> </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="doctor-submit text-end">
+                                    <button type="button" (click)="save()"
+                                        class="btn btn-primary submit-form me-2" routerLink="/staffs/list-staff">Guardar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

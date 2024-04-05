@@ -1,0 +1,133 @@
+<div class="page-wrapper">
+    <div class="content">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a [routerLink]="routes.adminDashboard">Dashboard </a></li>
+                        <li class="breadcrumb-item"><i class="feather icon-chevron-right"></i></li>
+                        <li class="breadcrumb-item active">Admin Dashboard</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <div class="good-morning-blk">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="morning-user">
+                        <h2>Bienvenido Nuevamente <span>{{ user.name + ' ' + user.surname }}</span></h2>
+                        <p>Que tengas un excelente día!</p>
+                    </div>
+                </div>
+                <div class="col-md-6 position-blk">
+                    <div class="morning-img">
+                        <img src="assets/img/morning-img-01.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="user.roles.includes('Super-Admin') || user.permissions.includes('admin_dashboard')">
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="dash-widget">
+                    <div class="dash-boxs comman-flex-center">
+                        <img src="assets/img/icons/calendar.svg" alt="">
+                    </div>
+                    <div class="dash-content dash-count">
+                        <h4>Appointments</h4>
+                        <!-- [countUp]="250" [options]="{duration: 10}" -->
+                        <h2><span class="counter-up">{{ num_appointments_current }}/ <small>{{ num_appointments_before
+                                    }}</small> </span></h2>
+                        <p *ngIf="porcentaje_d >= 0"><span class="passive-view"><i
+                                    class="feather icon-arrow-up-right me-1"></i>{{ porcentaje_d }}%</span> vs last
+                            month</p>
+                        <p *ngIf="porcentaje_d < 0"><span class="negative-view"><i
+                                    class="feather icon-arrow-down-right me-1"></i>{{ porcentaje_d }}%</span> vs last
+                            month</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="dash-widget">
+                    <div class="dash-boxs comman-flex-center">
+                        <img src="assets/img/icons/profile-add.svg" alt="">
+                    </div>
+                    <div class="dash-content dash-count">
+                        <h4>New Patients</h4>
+                        <!-- [countUp]="140" [options]="{duration: 10}" -->
+                        <h2><span class="counter-up">{{ num_patients_current }}/ <small>{{ num_patients_before
+                                    }}</small> </span></h2>
+                        <p *ngIf="porcentaje_dp >= 0"><span class="passive-view"><i
+                                    class="feather icon-arrow-up-right me-1"></i>{{ porcentaje_dp }}%</span> vs last
+                            month</p>
+                        <p *ngIf="porcentaje_dp < 0"><span class="negative-view"><i
+                                    class="feather icon-arrow-down-right me-1"></i>{{ porcentaje_dp }}%</span> vs last
+                            month</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="dash-widget">
+                    <div class="dash-boxs comman-flex-center">
+                        <img src="assets/img/icons/scissor.svg" alt="">
+                    </div>
+                    <div class="dash-content dash-count">
+                        <h4>Operations</h4>
+                        <!-- [countUp]="56" [options]="{duration: 10}" -->
+                        <h2><span class="counter-up">{{ num_appointments_attetion_current }}/ <small>{{
+                                    num_appointments_attetion_before }}</small> </span></h2>
+                        <p *ngIf="porcentaje_da >= 0"><span class="passive-view"><i
+                                    class="feather icon-arrow-down-right me-1"></i>{{ porcentaje_da }}%</span> vs last
+                            month</p>
+                        <p *ngIf="porcentaje_da < 0"><span class="negative-view"><i
+                                    class="feather icon-arrow-down-right me-1"></i>{{ porcentaje_da }}%</span> vs last
+                            month</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="dash-widget">
+                    <div class="dash-boxs comman-flex-center">
+                        <img src="assets/img/icons/empty-wallet.svg" alt="">
+                    </div>
+                    <div class="dash-content dash-count">
+                        <h4>Earnings</h4>
+                        <!-- [countUp]="20250" [options]="{duration: 10}" -->
+                        <h2>$<span class="counter-up"> {{ appointments_total_current }}/ <small>{{
+                                    appointments_total_before }}</small> </span></h2>
+                        <p *ngIf="porcentaje_dt >= 0"><span class="passive-view"><i
+                                    class="feather icon-arrow-up-right me-1"></i>{{ porcentaje_dt }}%</span> vs last
+                            month</p>
+                        <p *ngIf="porcentaje_dt < 0"><span class="negative-view"><i
+                                    class="feather icon-arrow-down-right me-1"></i>{{ porcentaje_dt }}%</span> vs last
+                            month</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="user.roles.includes('Super-Admin') || user.permissions.includes('admin_dashboard')">
+            <div class="col-12 col-md-12 col-lg-6 col-xl-9">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="chart-title patient-visit">
+                            <h4>Patient Visit by Gender</h4>
+                            
+                            <div class="form-group mb-0">
+                                <mat-select [(ngModel)]="selectedValue" class="form-control select" placeholder="2022"
+                                    (selectionChange)="selectedYear()">
+                                    <mat-option *ngFor="let data of selecedList" [value]="data.value">
+                                        {{data.value}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
